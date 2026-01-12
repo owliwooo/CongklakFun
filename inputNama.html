@@ -1,0 +1,282 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Congklak Fun</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Comic Sans MS', cursive;
+        }
+
+        body {
+            background: #FFE5B4;
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .container {
+            width: 90%;
+            max-width: 600px;
+            text-align: center;
+            padding: 20px;
+        }
+
+        .header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 30px;
+        }
+
+        .header-icons {
+            display: flex;
+            gap: 15px;
+        }
+
+        .header-icons i {
+            font-size: 24px;
+            color: #4D3012;
+            cursor: pointer;
+            transition: color 0.3s;
+        }
+
+        .header-icons i:hover {
+            color: #614200;
+        }
+
+        h1 {
+            color: #4D3012;
+            font-size: 3.5rem;
+            margin-bottom: 30px;
+            font-weight: bold;
+        }
+
+        .input-container {
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+            margin-bottom: 30px;
+        }
+
+        input {
+            padding: 15px;
+            border: 2px solid #4D3012;
+            border-radius: 25px;
+            font-size: 1.2rem;
+            outline: none;
+            width: 100%;
+            background: transparent;
+        }
+
+        input::placeholder {
+            color: #4D3012;
+            opacity: 0.7;
+        }
+
+        button {
+            background-color: #4D3012;
+            color: #FFE5B4;
+            border: none;
+            padding: 15px 40px;
+            border-radius: 25px;
+            font-size: 1.5rem;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        button:hover {
+            background-color: #614200;
+        }
+
+        @media (max-width: 480px) {
+            .container {
+                width: 95%;
+                padding: 10px;
+            }
+
+            h1 {
+                font-size: 2rem;
+            }
+
+            input, button {
+                padding: 12px;
+            }
+        }
+
+        .tutorial-card {
+            position: fixed;
+            background-color: #4a3000;
+            color: white;
+            padding: 20px;
+            border-radius: 15px;
+            width: 350px;
+            max-height: 80vh;
+            overflow-y: auto;
+            display: none;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            z-index: 1000;
+            right: 30px;
+            top: 50%;
+            transform: translateY(-50%);
+        }
+
+        .tutorial-card::-webkit-scrollbar {
+            width: 8px;
+        }
+
+        .tutorial-card::-webkit-scrollbar-track {
+            background: #614200;
+            border-radius: 10px;
+        }
+
+        .tutorial-card::-webkit-scrollbar-thumb {
+            background: #f4d03f;
+            border-radius: 10px;
+        }
+
+        .tutorial-card.show {
+            display: block;
+        }
+
+        @media (min-width: 1201px) {
+            .tutorial-card {
+                width: 400px;
+                right: 50px;
+            }
+        }
+
+        @media (min-width: 768px) and (max-width: 1200px) {
+            .tutorial-card {
+                width: 320px;
+                right: 30px;
+            }
+        }
+
+        @media (max-width: 767px) {
+            .tutorial-card {
+                width: 90%;
+                max-width: 350px;
+                position: fixed;
+                left: 50%;
+                top: 50%;
+                transform: translate(-50%, -50%);
+                max-height: 70vh;
+            }
+
+            .tutorial-card h2 {
+                font-size: 1.3rem;
+            }
+
+            .tutorial-content {
+                font-size: 0.85rem;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .tutorial-card {
+                width: 95%;
+                padding: 15px;
+                max-height: 60vh;
+            }
+        }
+
+        @media (max-height: 600px) and (orientation: landscape) {
+            .tutorial-card {
+                max-height: 85vh;
+                top: 50%;
+                transform: translate(-50%, -50%);
+            }
+        }
+
+        .overlay {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.5);
+            z-index: 999;
+        }
+
+        .overlay.show {
+            display: block;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <div></div>
+            <div class="header-icons">
+                <i class="fas fa-question-circle"></i>
+                <i class="fas fa-music"></i>
+                <i class="fas fa-volume-up"></i>
+            </div>
+        </div>
+        <h1>Congklak Fun</h1>
+        <div class="input-container">
+            <input type="text" placeholder="Player 1">
+            <input type="text" placeholder="Player 2">
+        </div>
+        <button>Start</button>
+    </div>
+
+    <div class="overlay"></div>
+    <div class="tutorial-card">
+        <h2>Tutorial Bermain</h2>
+        <div class="tutorial-content">
+            <ol>
+                <li>Congklak dimainkan oleh 2 pemain yang saling berhadapan.</li>
+                <li>Setiap pemain memiliki 7 lubang kecil di sisinya dan 1 lubang besar (lumbung) di sebelah kanan.</li>
+                <li>Setiap lubang kecil diisi dengan 7 biji congklak.</li>
+                <li>Pemain memilih salah satu lubang di sisinya dan mengambil semua biji.</li>
+                <li>Biji disebarkan satu per satu ke lubang berikutnya searah jarum jam.</li>
+                <li>Jika biji terakhir jatuh di lubang kosong di sisi pemain, dan lubang di seberangnya berisi biji, maka semua biji tersebut menjadi milik pemain.</li>
+                <li>Permainan berakhir ketika semua lubang kecil kosong.</li>
+                <li>Pemenang adalah pemain dengan jumlah biji terbanyak di lumbungnya.</li>
+            </ol>
+        </div>
+    </div>
+
+    <script>
+        const questionIcon = document.querySelector('.fa-question-circle');
+        const tutorialCard = document.querySelector('.tutorial-card');
+        const overlay = document.querySelector('.overlay');
+
+        questionIcon.addEventListener('click', function() {
+            tutorialCard.classList.toggle('show');
+            overlay.classList.toggle('show');
+        });
+
+        overlay.addEventListener('click', function() {
+            tutorialCard.classList.remove('show');
+            overlay.classList.remove('show');
+        });
+
+        document.querySelector('button').addEventListener('click', function() {
+            const player1 = document.querySelector('input[placeholder="Player 1"]').value;
+            const player2 = document.querySelector('input[placeholder="Player 2"]').value;
+            
+            if (player1.trim() === '' || player2.trim() === '') {
+                alert('Mohon isi nama kedua pemain!');
+                return;
+            }
+            
+            // Simpan nama pemain ke localStorage
+            localStorage.setItem('player1', player1);
+            localStorage.setItem('player2', player2);
+            
+            // Pindah ke halaman game
+            window.location.href = 'game.html';
+        });
+    </script>
+</body>
+</html>
